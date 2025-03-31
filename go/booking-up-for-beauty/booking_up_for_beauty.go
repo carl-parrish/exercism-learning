@@ -5,17 +5,15 @@ import (
 	"time"
 )
 
-// Schedule returns a time.Time from a string containing a date.
-func Schedule(date string) time.Time {
-
-	layouts := []string{
-		"January 2, 2006 15:04:05",
-		"1/02/2006 15:04:05",  
-		"01/02/2006 15:04:05",
-		"1/2/2006 15:04:05",
-		"Monday, January 2, 2006 15:04:05",
+var layouts []string = []string{
+		"1/_2/2006 15:04:05",
+		"01/_2/2006 15:04:05",
+		"January _2, 2006 15:04:05",
+		"Monday, January _2, 2006 15:04:05",
 	}
 
+// Schedule returns a time.Time from a string containing a date.
+func Schedule(date string) time.Time {
 	for _, layout := range layouts {
 		t, err := time.Parse(layout, date)
 		if err == nil {
