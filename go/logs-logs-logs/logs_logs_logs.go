@@ -5,14 +5,16 @@ import (
 	"unicode/utf8"
 )
 
-// Application identifies the application emitting the given log.
-func Application(log string) string {
-	appMap := map[rune]string{
+var appMap = map[rune]string{
 		'\u2757': "recommendation",
 		'\U0001F50D': "search",
 		'\u2600': "weather",
 
 	}
+
+// Application identifies the application emitting the given log.
+func Application(log string) string {
+	
 	for _, currentRune := range log {
 		if appName, ok := appMap[currentRune]; ok{
 			return appName
@@ -24,16 +26,7 @@ func Application(log string) string {
 // Replace replaces all occurrences of old with new, returning the modified log
 // to the caller.
 func Replace(log string, oldRune, newRune rune) string {
- swap := func(currentRune rune)rune {
-	switch {
-	case currentRune == oldRune:
-		return newRune
-	default:
-		return currentRune
-	}
- }
-	return strings.Map(swap, log)
-	 
+	return strings.ReplaceAll(log, string(oldRune), string(newRune))
 }
 
 
